@@ -1,0 +1,121 @@
+# server.http
+# Test file for e-commerce API endpoints
+# Run server with: cd server && npm run dev
+# Ensure MongoDB Atlas is accessible with MONGO_URI from .env
+# Replace <ADMIN_TOKEN>, <CUSTOMER_TOKEN>, and <PRODUCT_ID> with actual values from responses
+
+###
+# Register a customer
+POST http://localhost:5000/api/auth/register
+Content-Type: application/json
+
+{
+  "username": "customer1",
+  "password": "password123",
+  "role": "customer"
+}
+
+###
+# Register an admin
+POST http://localhost:5000/api/auth/register
+Content-Type: application/json
+
+{
+  "username": "admin1",
+  "password": "password123",
+  "role": "admin"
+}
+
+###
+# Login as customer (copy token from response for <CUSTOMER_TOKEN>)
+POST http://localhost:5000/api/auth/login
+Content-Type: application/json
+
+{
+  "username": "customer1",
+  "password": "password123"
+}
+
+###
+# Login as admin (copy token from response for <ADMIN_TOKEN>)
+POST http://localhost:5000/api/auth/login
+Content-Type: application/json
+
+{
+  "username": "admin1",
+  "password": "password123"
+}
+
+###
+# Get products (public, supports pagination and search)
+GET http://localhost:5000/api/products?page=1&limit=10&search=phone&category=electronics
+
+###
+# Add product (admin only, replace <ADMIN_TOKEN>)
+POST http://localhost:5000/api/products
+Content-Type: application/json
+Authorization: Bearer <ADMIN_TOKEN>
+
+{
+  "name": "Smartphone",
+  "price": 599.99,
+  "category": "electronics",
+  "description": "Latest model smartphone"
+}
+
+###
+# Update product (admin only, replace <ADMIN_TOKEN> and <PRODUCT_ID>)
+PUT http://localhost:5000/api/products/<PRODUCT_ID>
+Content-Type: application/json
+Authorization: Bearer <ADMIN_TOKEN>
+
+{
+  "name": "Updated Smartphone",
+  "price": 649.99,
+  "category": "electronics",
+  "description": "Updated model"
+}
+
+###
+# Delete product (admin only, replace <ADMIN_TOKEN> and <PRODUCT_ID>)
+DELETE http://localhost:5000/api/products/<PRODUCT_ID>
+Authorization: Bearer <ADMIN_TOKEN>
+
+###
+# Get cart (customer only, replace <CUSTOMER_TOKEN>)
+GET http://localhost:5000/api/cart
+Authorization: Bearer <CUSTOMER_TOKEN>
+
+###
+# Add item to cart (customer only, replace <CUSTOMER_TOKEN> and <PRODUCT_ID>)
+POST http://localhost:5000/api/cart
+Content-Type: application/json
+Authorization: Bearer <CUSTOMER_TOKEN>
+
+{
+  "productId": "<PRODUCT_ID>",
+  "quantity": 2
+}
+
+###
+# Update cart item quantity (customer only, replace <CUSTOMER_TOKEN> and <PRODUCT_ID>)
+PUT http://localhost:5000/api/cart/<PRODUCT_ID>
+Content-Type: application/json
+Authorization: Bearer <CUSTOMER_TOKEN>
+
+{
+  "quantity": 3
+}
+
+###
+# Remove item from cart (customer only, replace <CUSTOMER_TOKEN> and <PRODUCT_ID>)
+DELETE http://localhost:5000/api/cart/<PRODUCT_ID>
+Authorization: Bearer <CUSTOMER_TOKEN>
+
+###
+# Create order from cart (customer only, replace <CUSTOMER_TOKEN>)
+POST http://localhost:5000/api/orders
+Content-Type: application/json
+Authorization: Bearer <CUSTOMER_TOKEN>
+
+{}
