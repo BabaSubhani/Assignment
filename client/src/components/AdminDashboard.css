@@ -1,0 +1,36 @@
+.admin-dashboard {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 1000px;
+}
+
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.dashboard-header h2 {
+  color: #0052cc;
+  font-size: 1.6rem;
+  font-weight: 500;
+}
+
+.logout-button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  background-color: #d32f2f;
+  color: #ffffff;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.logout-button:hover {
+  background-color: #b71c1c;
+}
