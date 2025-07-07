@@ -10,7 +10,7 @@ POST http://localhost:5000/api/auth/register
 Content-Type: application/json
 
 {
-  "username": "customer1",
+  "username": "customer13",
   "password": "password123",
   "role": "customer"
 }
